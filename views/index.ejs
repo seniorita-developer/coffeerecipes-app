@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Coffee Recipes</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Do you love coffee?</h1>
+            <p class="lead">Choose coffee which you make today!</p>
+        </div>
+
+        <div class="row">
+        
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" 
+                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" 
+                    aria-expanded="false" >
+                        Choose your coffee
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" id="Espresso" href="#recipetext">Espresso</a>
+                        <a class="dropdown-item" id="Americano" href="#recipetext">Americano</a>
+                        <a class="dropdown-item" id="Latte" href="#recipetext">Latte</a>
+                        <a class="dropdown-item" id="Capuccino" href="#recipetext">Capuccino</a>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col">
+        <div class="card">
+            <h3 class="card-header" id="coffeetype">Your Recipe below</h3>
+                 
+            <p class="text-justify" id="recipetext">Your recipe is here</p>
+        </div>
+        </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+        // how to get text from html with jquery
+        $(".dropdown-menu a").on('click', function () {
+            var mycoffeeType = $(this).text();
+            // $("#recipetext").text(coffeType);
+            
+            $.get('/getcoffee', {coffeeType:mycoffeeType}, (data, textStatus, jqXHR) => {
+                $("#recipetext").text(data);
+                $("#coffeetype").text(mycoffeeType);
+            });
+        });
+    
+</script>
+
+</html>
